@@ -34,8 +34,11 @@ The main things I wanted to achieve with AlloyXL were:-
 * Providing open / close events on Window views
 * Cleaning up memory after a controller is closed
 * Reduce code throughout the app
-* Allow access to controllers globally like Allloy.Collections
+* Allow access to controllers globally like Alloy.Collections
 
+## Things to know
+
+The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**. 
 
 ## Quick Start
 * [Install from NPM the latest version](https://www.npmjs.com/package/alloyxl)
