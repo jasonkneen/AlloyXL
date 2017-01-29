@@ -1,6 +1,3 @@
-// AlloyXL -- enhancing Alloy Controllers
-
-// main function to override Alloy.createController
 Alloy.createController = function(name, args) {
 
     // create instance to the controller and view
