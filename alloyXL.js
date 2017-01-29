@@ -37,6 +37,7 @@ Alloy.createController = function(name, args) {
             view = null;
             controller.off();
             controller.destroy();
+            Alloy.Controllers[controller.id] = null;
             delete Alloy.Controllers[controller.id];
             controller = null;
 
