@@ -4,8 +4,8 @@ Alloy.createController = function(name, args) {
     var controller = new(require("alloy/controllers/" + name))(args);
 
     // check if we have a view and not just <Alloy/>
-    if (controller.__views.length > 0) {
 
+    if (Object.keys(controller.__views).length>0) {
         var view = controller.getView();
 
         // initialise Alloy.Controllers
