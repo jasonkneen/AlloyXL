@@ -5,6 +5,8 @@ Alloy.createController = function(name, args) {
 
     // check if we have a view and not just <Alloy/>
 
+    console.log(name);
+    
     if (Object.keys(controller.__views).length > 0) {
         var view = controller.getView();
 
@@ -18,6 +20,10 @@ Alloy.createController = function(name, args) {
         if (path.length > 0) name = path[path.length - 1];
 
         // save the controller to Alloy.Controllers for global access
+        if (Alloy.Controllers[name]) {
+            console.warn("::AlloyXL:: Alloy.Controllers." + name + " exists, and will be overwriten. You might want to name these differently!");
+        }
+
         Alloy.Controllers[name] = controller;
 
         // add a once event handler

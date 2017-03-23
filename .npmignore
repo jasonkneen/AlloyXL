@@ -1,0 +1,6 @@
+.DS_Store
+.git
+alloyXL.js symlink
+dist
+publish.sh
+readme.md

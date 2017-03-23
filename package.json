@@ -1,23 +1,28 @@
 {
   "name": "alloyxl",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "A Titanium Alloy JavaScript library that enhances Alloy.",
   "titaniumManifest": {
     "guid": "e9b31b59-333e-4755-a996-04ac761ad652"
   },
   "main": "alloyXL.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node ./appc-npm"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jasonkneen/AlloyXL.git"
   },
   "keywords": [
-    "titanium",
+    "alloy",
+    "appc-lib",
+    "appc-npm",
+    "appcelerator",
+    "arrow",
     "controllers",
     "titanium",
-    "alloy"
+    "titanium"
   ],
   "author": "Jason Kneen",
   "license": "Apache 2.0",
@@ -25,10 +30,26 @@
     "url": "https://github.com/jasonkneen/AlloyXL/issues"
   },
   "homepage": "https://github.com/jasonkneen/AlloyXL",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-titaniumifier": "^1.1.0"
+  },
+  "appc-npm": {
+    "target": {
+      "alloy": "app/lib/",
+      "titanium": "Resources/",
+      "arrow": "lib/"
+    },
+    "ignore": [
+      ".DS_Store",
+      ".git",
+      "alloyXL.js symlink",
+      "dist",
+      "package.json",
+      "package.json",
+      "publish.sh",
+      "readme.md"
+    ]
   }
 }
