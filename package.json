@@ -1,6 +1,6 @@
 {
   "name": "alloyxl",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "A Titanium Alloy JavaScript library that enhances Alloy.",
   "titaniumManifest": {
     "guid": "e9b31b59-333e-4755-a996-04ac761ad652"
@@ -46,6 +46,7 @@
       ".git",
       "alloyXL.js symlink",
       "dist",
+      "node_modules",
       "package.json",
       "package.json",
       "publish.sh",

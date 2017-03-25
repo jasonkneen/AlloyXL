@@ -6,7 +6,7 @@ Alloy.createController = function(name, args) {
     // check if we have a view and not just <Alloy/>
 
     console.log(name);
-    
+
     if (Object.keys(controller.__views).length > 0) {
         var view = controller.getView();
 
