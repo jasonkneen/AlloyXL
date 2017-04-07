@@ -1,5 +1,7 @@
 # AlloyXL
 
+Better controller management and workflow for [Appcelerator](http://www.appcelerator.com) [Titanium](https://github.com/appcelerator/titanium_mobile) [Alloy MVC framework](https://github.com/appcelerator/alloy).
+
 ## Why?
 
 I build a lot of apps where I use Alloy MVC. In developing apps I end up requiring some additional functionality when it comes to using controllers for example:
@@ -14,7 +16,7 @@ I build a lot of apps where I use Alloy MVC. In developing apps I end up requiri
 So previously I'd end up writing code to clean up a view / controller within say, a close function associated with hitting back or close button, like this:
 
 ```JS
-function doClose(){
+function doClose() {
 	$.getView().close();
 	$.destroy();
 	$.off();
@@ -36,11 +38,31 @@ The main things I wanted to achieve with AlloyXL were:-
 * Reduce code throughout the app
 * Allow access to controllers globally like Alloy.Collections
 
-## Things to know
+## Same name controllers conflicts
 
-The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**. 
+The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**.
+
+If you have two controllers having the same names but located in different folders (`app/controllers/registration/index.js` and `app/controllers/home/index.js` for example), this will cause a conflict within AlloyXL.
+
+However, you can avoid this issue by either using different and unique names for all of your controllers **or** by using a unique ID on the top parent `<NavigationWindow>`, `<Window>` or `<View>` within your controllers and use it as the controller name within AlloyXL:
+
+File: `app/views/registration/index.xml`
+```xml
+<Alloy>
+    <View id="myUniqueID">
+	</View>
+</Alloy>
+```
+
+```javascript
+// Now access the controller using
+Alloy.Controllers.myUniqueID;
+// instead of
+Alloy.Controllers.index;
+```
 
 ## Quick Start
+
 * [Install from NPM the latest version](https://www.npmjs.com/package/alloyxl)
 or
 * [Download the latest version](https://github.com/jasonkneen/AlloyXL) and place in your project (lib folder for Alloy).
