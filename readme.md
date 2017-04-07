@@ -17,7 +17,7 @@ So previously I'd end up writing code to clean up a view / controller within say
 
 ```JS
 function doClose() {
-	$.getView().close();
+    $.getView().close();
 	$.destroy();
 	$.off();
 }
@@ -37,29 +37,6 @@ The main things I wanted to achieve with AlloyXL were:-
 * Cleaning up memory after a controller is closed
 * Reduce code throughout the app
 * Allow access to controllers globally like Alloy.Collections
-
-## Same name controllers conflicts
-
-The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**.
-
-If you have two controllers having the same names but located in different folders (`app/controllers/registration/index.js` and `app/controllers/home/index.js` for example), this will cause a conflict within AlloyXL.
-
-However, you can avoid this issue by either using different and unique names for all of your controllers **or** by using a unique ID on the top parent `<NavigationWindow>`, `<Window>` or `<View>` within your controllers and use it as the controller name within AlloyXL:
-
-File: `app/views/registration/index.xml`
-```xml
-<Alloy>
-    <View id="myUniqueID">
-	</View>
-</Alloy>
-```
-
-```javascript
-// Now access the controller using
-Alloy.Controllers.myUniqueID;
-// instead of
-Alloy.Controllers.index;
-```
 
 ## Quick Start
 
@@ -87,7 +64,7 @@ _(where the view we're in is a Navigation Window or TabGroup and "subview" is a 
 
 ```javascript
 $.getView().openWindow(Alloy.createController("subview").on("open", function(){
-        Alloy.Controllers.subview.getView().setBackgroundColor("#F00");
+    Alloy.Controllers.subview.getView().setBackgroundColor("#F00");
 }).getView());
 ```
 In this example, without creating any local pointers to the controller or view, we're responding to the open event on the window, and setting the background color of the view to red.
@@ -96,15 +73,78 @@ You can also combine this with Alloy event chaning:
 
 ```javascript
 $.getView().openWindow(Alloy.createController("subview").on("open", function(){
-        Alloy.Controllers.subview.getView().setBackgroundColor("red");
+    Alloy.Controllers.subview.getView().setBackgroundColor("red");
 }).on("anotherEvent", function(){
-			// handle the anotherEvent here
+    // handle the anotherEvent here
 }).once("oneTime", function(){
-			// this event will only ever fire once
+    // this event will only ever fire once
 }).getView());
 ```
 
 Because AlloyXL is intercepting and overriding the **Alloy.createController** method, it's able to do all this at the source, ensuring that everything is cleaned up afterwards!
+
+## Same name controllers conflicts
+
+The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**.
+
+If you have two controllers having the same names but located in different folders (`app/controllers/registration/index.js` and `app/controllers/home/index.js` for example), this will cause a conflict within AlloyXL.
+
+However, you can avoid this issue by either using different and unique names for all of your controllers **or** by using a unique ID on the top parent `<NavigationWindow>`, `<Window>` or `<View>` within your controllers and use it as the controller name within AlloyXL:
+
+File: `app/views/registration/index.xml`
+```xml
+<Alloy>
+    <View id="myUniqueID">
+	</View>
+</Alloy>
+```
+
+```javascript
+// Now access the controller using
+Alloy.Controllers.myUniqueID;
+// instead of
+Alloy.Controllers.index;
+```
+
+### Taking the advantage of overriding controllers 
+
+By applying the above, you can easily override a controller already instanciated within `Alloy.Controllers`, no matter what.
+
+This is very useful for `<NavigationWindow>` if you want to re-use the same "ID" or controller name accross your project. Here is a simple example:
+
+File: `app/views/login.xml` Login screen
+```xml
+<Alloy>
+    <NavigationWindow id="navigationWindow">
+    ...
+    </NavigationWindow>
+</Alloy>
+```
+
+File: `app/views/home.xml` Home screen once connected
+```xml
+<Alloy>
+    <NavigationWindow id="navigationWindow">
+    ...
+    </NavigationWindow>
+</Alloy>
+```
+
+File: `app/views/welcome.xml` Welcome window displayed no matter if you're logged in or not
+```xml
+<Alloy>
+    <Window>
+    ...
+    </Window>
+</Alloy>
+```
+
+```javascript
+// This will work no matter if the controller used is login or home.
+Alloy.Controllers.navigationWindow.getView().openWindow(
+    Alloy.createController("welcome").getView()
+);
+```
 
 ## License
 
