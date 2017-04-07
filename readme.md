@@ -1,5 +1,7 @@
 # AlloyXL
 
+Better controller management and workflow for [Appcelerator](http://www.appcelerator.com) [Titanium](https://github.com/appcelerator/titanium_mobile) [Alloy MVC framework](https://github.com/appcelerator/alloy).
+
 ## Why?
 
 I build a lot of apps where I use Alloy MVC. In developing apps I end up requiring some additional functionality when it comes to using controllers for example:
@@ -14,7 +16,7 @@ I build a lot of apps where I use Alloy MVC. In developing apps I end up requiri
 So previously I'd end up writing code to clean up a view / controller within say, a close function associated with hitting back or close button, like this:
 
 ```JS
-function doClose(){
+function doClose() {
 	$.getView().close();
 	$.destroy();
 	$.off();
