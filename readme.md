@@ -36,11 +36,31 @@ The main things I wanted to achieve with AlloyXL were:-
 * Reduce code throughout the app
 * Allow access to controllers globally like Alloy.Collections
 
-## Things to know
+## Same name controllers conflicts
 
-The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**. 
+The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**.
+
+If you have two controllers having the same names but located in different folders (`app/controllers/registration/index.js` and `app/controllers/home/index.js` for example), this will cause a conflict within AlloyXL.
+
+However, you can avoid this issue by either using different and unique names for all of your controllers **or** by using a unique ID on the top parent `<NavigationWindow>`, `<Window>` or `<View>` within your controllers and use it as the controller name within AlloyXL:
+
+File: `app/views/registration/index.xml`
+```xml
+<Alloy>
+    <View id="myUniqueID">
+	</View>
+</Alloy>
+```
+
+```javascript
+// Now access the controller using
+Alloy.Controllers.myUniqueID;
+// instead of
+Alloy.Controllers.index;
+```
 
 ## Quick Start
+
 * [Install from NPM the latest version](https://www.npmjs.com/package/alloyxl)
 or
 * [Download the latest version](https://github.com/jasonkneen/AlloyXL) and place in your project (lib folder for Alloy).
