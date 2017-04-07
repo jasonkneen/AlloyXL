@@ -4,9 +4,6 @@ Alloy.createController = function(name, args) {
     var controller = new(require("alloy/controllers/" + name))(args);
 
     // check if we have a view and not just <Alloy/>
-
-    console.log(name);
-
     if (Object.keys(controller.__views).length > 0) {
         var view = controller.getView();
 
@@ -48,7 +45,7 @@ Alloy.createController = function(name, args) {
                 view.addEventListener("open", open = function(e) {
                     view.removeEventListener("open", open);
                     controller.trigger("open", e);
-                    if (ENV_DEV) console.log("controller " + name + " was opened");
+                    if (ENV_DEV) console.log("::AlloyXL:: controller " + name + " was opened");
                 });
 
                 // fully clean up the view and controller on close
@@ -61,14 +58,14 @@ Alloy.createController = function(name, args) {
                     controller.destroy();
                     controller = null;
 
-                    if (ENV_DEV) console.log("Controller " + name + " cleaned up!");
+                    if (ENV_DEV) console.log("::AlloyXL:: Controller " + name + " cleaned up!");
                 });
 
                 // fire an open event on open
                 view.addEventListener("postlayout", function postlayout(e) {
                     view.removeEventListener("postlayout", postlayout);
                     controller.trigger("postlayout", e);
-                    if (ENV_DEV) console.log("controller " + name + " layout finished");
+                    if (ENV_DEV) console.log("::AlloyXL:: controller " + name + " layout finished");
                 });
 
             } else {
@@ -76,7 +73,7 @@ Alloy.createController = function(name, args) {
                 view.addEventListener("postlayout", function postlayout(e) {
                     view.removeEventListener("postlayout", postlayout);
                     controller.trigger("postlayout", e);
-                    if (ENV_DEV) console.log("controller " + name + " layout finished");
+                    if (ENV_DEV) console.log("::AlloyXL:: controller " + name + " layout finished");
                 });
             }
         }
