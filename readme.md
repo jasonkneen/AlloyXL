@@ -18,8 +18,8 @@ So previously I'd end up writing code to clean up a view / controller within say
 ```JS
 function doClose() {
     $.getView().close();
-	$.destroy();
-	$.off();
+    $.destroy();
+    $.off();
 }
 ```
 
@@ -95,7 +95,7 @@ File: `app/views/registration/index.xml`
 ```xml
 <Alloy>
     <View id="myUniqueID">
-	</View>
+    </View>
 </Alloy>
 ```
 
