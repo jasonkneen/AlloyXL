@@ -17,19 +17,21 @@ Alloy.createController = function(name, args) {
         if (path.length > 0) name = path[path.length - 1];
 
         // Avoid having issues with same controller name within different folders
-        if (Alloy.Controllers[name] && ! controller.getView().id) {
+        if (Alloy.Controllers[name] && ! view.id) {
             console.warn("::AlloyXL:: The controller Alloy.Controllers." + name + " (" + controller.__controllerPath + ") exists, and will be overwriten because it's conflicting with another controller already instanciated with the same name. " +
             "Please add a unique ID on the top parent view within that controller view so you can use this as the controller name within AlloyXL to avoid this.");
         }
 
         // No matter what, the ID on the top parent view will always override
         // the controller name driven from its filename.
-        if (controller.getView().id) {
-            name = controller.getView().id;
+        if (view.id) {
+            name = view.id;
         }
 
         // save the controller to Alloy.Controllers for global access
-        Alloy.Controllers[name] = controller;
+        if (view.getApiName() === "Ti.UI.Window") {
+            Alloy.Controllers[name] = controller;
+        }
 
         // add a once event handler
         controller.once = function(eventName, callback) {
