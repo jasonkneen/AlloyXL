@@ -15,7 +15,7 @@ Alloy.createController = function(name, args) {
 
         // if we have a path, set name to the last part (controller name)
         if (path.length > 0) name = path[path.length - 1];
-        
+
         // Avoid having issues with same controller name within different folders
         if (Alloy.Controllers[name] && ! controller.getView().id) {
             console.warn("::AlloyXL:: The controller Alloy.Controllers." + name + " (" + controller.__controllerPath + ") exists, and will be overwriten because it's conflicting with another controller already instanciated with the same name. " +
@@ -44,7 +44,7 @@ Alloy.createController = function(name, args) {
             if (typeof view.open == "function") {
 
                 // fire an open event on open
-                view.addEventListener("open", open = function(e) {
+                view.addEventListener("open", function open (e) {
                     view.removeEventListener("open", open);
                     controller.trigger("open", e);
                     if (ENV_DEV) console.log("::AlloyXL:: controller " + name + " was opened");
@@ -54,8 +54,8 @@ Alloy.createController = function(name, args) {
                 view.addEventListener("close", function close(e) {
                     view.removeEventListener("close", close);
                     view = null;
-                    Alloy.Controllers[controller.id] = null;
-                    delete Alloy.Controllers[controller.id];
+                    Alloy.Controllers[name] = null;
+                    delete Alloy.Controllers[name];
                     controller.off();
                     controller.destroy();
                     controller = null;
