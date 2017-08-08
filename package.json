@@ -1,6 +1,6 @@
 {
   "name": "alloyxl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Titanium Alloy JavaScript library that enhances Alloy.",
   "titaniumManifest": {
     "guid": "e9b31b59-333e-4755-a996-04ac761ad652"
