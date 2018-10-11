@@ -1,4 +1,30 @@
-Alloy.createController = function(name, args) {
+Alloy.createController = function (name, args) {
+
+    function cleanUpController(controller) {
+
+        // remove our global pointer
+        Alloy.Controllers[controller.id] = null;
+
+        // iterate sub-views and clean them out -- normally not 
+        // necessary but because AlloyXL is intercepting the 
+        // createController method and doing it's thing, we have 
+        // to clean up after ourselves.
+
+        if (controller.__views) {
+            _.each(controller.__views, function (value, key) {
+                cleanUpController(value);
+            });
+        }
+
+        // turn off any event handlers and destroy any data-binding
+        if (controller.__iamalloy) {
+            controller.off();
+            controller.destroy();
+        }
+
+        // kill the pointer
+        controller = null;
+    }
 
     // create instance to the controller and view
     var controller = new(require("alloy/controllers/" + name))(args);
@@ -17,13 +43,13 @@ Alloy.createController = function(name, args) {
         if (path.length > 0) name = path[path.length - 1];
 
         // Avoid having issues with same controller name within different folders
-        if (Alloy.Controllers[name] && ! controller.getView().id) {
+        if (Alloy.Controllers[name] && !controller.getView().id) {
             console.warn("::AlloyXL:: The controller Alloy.Controllers." + name + " (" + controller.__controllerPath + ") exists, and will be overwriten because it's conflicting with another controller already instanciated with the same name. " +
-            "Please add a unique ID on the top parent view within that controller view so you can use this as the controller name within AlloyXL to avoid this.");
+                "Please add a unique ID on the top parent view within that controller view so you can use this as the controller name within AlloyXL to avoid this.");
         }
 
-        // No matter what, the ID on the top parent view will always override
-        // the controller name driven from its filename.
+        // No matter what, the ID on the top parent view will always 
+        // override the controller name driven from its filename.
         if (controller.getView().id) {
             name = controller.getView().id;
         }
@@ -32,8 +58,8 @@ Alloy.createController = function(name, args) {
         Alloy.Controllers[name] = controller;
 
         // add a once event handler
-        controller.once = function(eventName, callback) {
-            controller.on(eventName, function() {
+        controller.once = function (eventName, callback) {
+            controller.on(eventName, function () {
                 controller.off(eventName);
                 callback();
             });
@@ -44,7 +70,7 @@ Alloy.createController = function(name, args) {
             if (typeof view.open == "function") {
 
                 // fire an open event on open
-                view.addEventListener("open", function open (e) {
+                view.addEventListener("open", function open(e) {
                     view.removeEventListener("open", open);
                     controller.trigger("open", e);
                     if (ENV_DEV) console.log("::AlloyXL:: controller " + name + " was opened");
@@ -54,10 +80,9 @@ Alloy.createController = function(name, args) {
                 view.addEventListener("close", function close(e) {
                     view.removeEventListener("close", close);
                     view = null;
-                    Alloy.Controllers[name] = null;
-                    delete Alloy.Controllers[name];
-                    controller.off();
-                    controller.destroy();
+
+                    cleanUpController(controller);
+
                     controller = null;
 
                     if (ENV_DEV) console.log("::AlloyXL:: Controller " + name + " cleaned up!");
