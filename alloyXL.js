@@ -18,7 +18,7 @@ Alloy.createController = function (name, args) {
       controller = null;
     }
 
-    var controller = new (require("alloy/controllers/" + name))(args);
+    var controller = new(require("alloy/controllers/" + name))(args);
 
     if (Object.keys(controller.__views).length > 0) {
       var view = controller.getView();
