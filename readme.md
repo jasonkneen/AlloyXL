@@ -106,6 +106,26 @@ Alloy.Controllers.myUniqueID;
 Alloy.Controllers.index;
 ```
 
+### Global event handlers
+
+AlloyXL introduces a global event handler at `Alloy.App` — in order to use this you can trigger an event from anywhere the app and then handle this using the `Alloy.App` object.
+
+So:
+
+```js
+Alloy.App.trigger("logout");
+```
+
+Could be used to logout of the app anywhere and could be picked up by:
+
+```js
+Alloy.App.on("logout", function(){
+	// do your log out here
+});
+```
+
+You could even pass callbacks or other functions around events so you could handle say the logging out of a user (or an invalid API token), sending them back to a login screen.
+
 ### Taking the advantage of overriding controllers 
 
 By applying the above, you can easily override a controller already instantiated within `Alloy.Controllers`, no matter what.

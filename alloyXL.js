@@ -1,3 +1,5 @@
+Alloy.App = _.clone(Backbone.Events);
+
 // added to make webpack compatible
 var createController = Alloy.createController;
 
