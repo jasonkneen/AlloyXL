@@ -49,25 +49,25 @@ Wherever you want to initialise the API interface, put this (ideally this should
 ```javascript
 require("alloyXL");
 ```
-*(note you don't have to assign it to a variable)*
+*(note you don’t have to assign it to a variable)*
 
 Once done, AlloyXL will automatically override the **Alloy.createController** method adding the following:
 
 - open and close events for Windows / Navigation Windows and TabGroups
-- a "once" event handler
+- a “once” event handler
 - global access to the controller from **Alloy.Controllers.name_of_controller**
 - model / collection, event and pointer clean up on close
 
 So, you can do something like this:
 
-_(where the view we're in is a Navigation Window or TabGroup and "subview" is a Window)_
+_(where the view we’re in is a Navigation Window or TabGroup and “subview” is a Window)_
 
 ```javascript
 $.getView().openWindow(Alloy.createController("subview").on("open", function(){
     Alloy.Controllers.subview.getView().setBackgroundColor("#F00");
 }).getView());
 ```
-In this example, without creating any local pointers to the controller or view, we're responding to the open event on the window, and setting the background color of the view to red.
+In this example, without creating any local pointers to the controller or view, we’re responding to the open event on the window, and setting the background color of the view to red.
 
 You can also combine this with Alloy event chaning:
 
@@ -81,11 +81,11 @@ $.getView().openWindow(Alloy.createController("subview").on("open", function(){
 }).getView());
 ```
 
-Because AlloyXL is intercepting and overriding the **Alloy.createController** method, it's able to do all this at the source, ensuring that everything is cleaned up afterwards!
+Because AlloyXL is intercepting and overriding the **Alloy.createController** method, it’s able to do all this at the source, ensuring that everything is cleaned up afterwards!
 
 ## Same name controllers conflicts
 
-The **Alloy.Controllers** object stores the *last* instance to a controller -- so normally, if you're creating controllers with different names it's all fine -- however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**.
+The **Alloy.Controllers** object stores the *last* instance to a controller — so normally, if you’re creating controllers with different names it’s all fine — however if you create two instances to a controller at once, only the *last* one is in **Alloy.Controllers**.
 
 If you have two controllers having the same names but located in different folders (`app/controllers/registration/index.js` and `app/controllers/home/index.js` for example), this will cause a conflict within AlloyXL.
 
@@ -108,9 +108,9 @@ Alloy.Controllers.index;
 
 ### Taking the advantage of overriding controllers 
 
-By applying the above, you can easily override a controller already instanciated within `Alloy.Controllers`, no matter what.
+By applying the above, you can easily override a controller already instantiated within `Alloy.Controllers`, no matter what.
 
-This is very useful for `<NavigationWindow>` if you want to re-use the same "ID" or controller name accross your project. Here is a simple example:
+This is very useful for `<NavigationWindow>` if you want to re-use the same “ID” or controller name across your project. Here is a simple example:
 
 File: `app/views/login.xml` Login screen
 ```xml
@@ -147,7 +147,6 @@ Alloy.Controllers.navigationWindow.getView().openWindow(
 ```
 
 ## License
-
 <pre>
 Copyright 2017 Jason Kneen
 
