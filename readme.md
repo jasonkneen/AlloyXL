@@ -13,7 +13,7 @@ I build a lot of apps where I use Alloy MVC. In developing apps I end up requiri
 
 ### The Old Way
 
-So previously I'd end up writing code to clean up a view / controller within say, a close function associated with hitting back or close button, like this:
+So previously I’d end up writing code to clean up a view / controller within say, a close function associated with hitting back or close button, like this:
 
 ```JS
 function doClose() {
@@ -23,9 +23,9 @@ function doClose() {
 }
 ```
 
-This is fine when **you** handle the event of closing a controller / view -- but if you're using say, a Navigation Window or TabGroup and you're using the default behavoir of the back button, then this code wouldn't run. You'd have to associate code with the "close" event on the Window. 
+This is fine when **you** handle the event of closing a controller / view — but if you’re using say, a Navigation Window or TabGroup and you’re using the default behavoir of the back button, then this code wouldn’t run. You’d have to associate code with the “close” event on the Window. 
 
-_(All of this led to lots of templated code in controllers, repeative code and could end up with some views being closed outside of the code I was writing and so the clean up wouldn't happen.)_
+_(All of this led to lots of templated code in controllers, repeative code and could end up with some views being closed outside of the code I was writing and so the clean up wouldn’t happen.)_
 
 ## A New Way - Using AlloyXL
 
@@ -106,7 +106,7 @@ Alloy.Controllers.myUniqueID;
 Alloy.Controllers.index;
 ```
 
-### Taking the advantage of overriding controllers 
+### Taking the advantage of overriding controllers 
 
 By applying the above, you can easily override a controller already instanciated within `Alloy.Controllers`, no matter what.
 
@@ -130,7 +130,7 @@ File: `app/views/home.xml` Home screen once connected
 </Alloy>
 ```
 
-File: `app/views/welcome.xml` Welcome window displayed no matter if you're logged in or not
+File: `app/views/welcome.xml` Welcome window displayed no matter if you’re logged in or not
 ```xml
 <Alloy>
     <Window>
@@ -151,14 +151,14 @@ Alloy.Controllers.navigationWindow.getView().openWindow(
 <pre>
 Copyright 2017 Jason Kneen
 
-Licensed under the Apache License, Version 2.0 (the "License");
+Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an “AS IS” BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
