@@ -1,3 +1,6 @@
+// added to make webpack compatible
+var createController = Alloy.createController;
+
 Alloy.createController = function (name, args) {
 
   function cleanUpController(controller) {
@@ -17,7 +20,11 @@ Alloy.createController = function (name, args) {
     controller = null;
   }
 
-  var controller = new(require("alloy/controllers/" + name))(args);
+  // added to make webpack compatible
+  var controller = createController(name, args);
+
+  // original non-webpack implementation
+  //var controller = new (require("alloy/controllers/" + name).default)(args);
 
   if (Object.keys(controller.__views).length > 0) {
     var view = controller.getView();
