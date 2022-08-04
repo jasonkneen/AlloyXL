@@ -51,12 +51,22 @@ require("alloyXL");
 ```
 *(note you don’t have to assign it to a variable)*
 
+If you want to set some options you can do:-
+
+```javascript
+require("alloyXL").options({
+    debug: false, // turns off debug messages in ENV_DEV
+    touchTimeout: 250 // disables a view when clicked for X ms to prevent double taps (default 750)
+});
+```
+
 Once done, AlloyXL will automatically override the **Alloy.createController** method adding the following:
 
 - open and close events for Windows / Navigation Windows and TabGroups
 - a “once” event handler
 - global access to the controller from **Alloy.Controllers.name_of_controller**
 - model / collection, event and pointer clean up on close
+- debug messages on open, close, cleanup and postlayout (if debug = true -- the default)
 
 So, you can do something like this:
 
@@ -75,9 +85,9 @@ You can also combine this with Alloy event chaning:
 $.getView().openWindow(Alloy.createController("subview").on("open", function(){
     Alloy.Controllers.subview.getView().setBackgroundColor("red");
 }).on("anotherEvent", function(){
-    // handle the anotherEvent here
+    // handle the anotherEvent here -- you have to fire this yourself
 }).once("oneTime", function(){
-    // this event will only ever fire once
+    // this event will only ever fire once -- you have to fire this yourself
 }).getView());
 ```
 
@@ -168,7 +178,7 @@ Alloy.Controllers.navigationWindow.getView().openWindow(
 
 ## License
 <pre>
-Copyright 2020-2021 Jason Kneen
+Copyright 2020-2022 Jason Kneen
 
 Licensed under the Apache License, Version 2.0 (the “License”);
 you may not use this file except in compliance with the License.
